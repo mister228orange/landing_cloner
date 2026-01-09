@@ -47,7 +47,7 @@ def clone(url, path=None, name=None, dockerfile=False):
     click.echo(click.style(f"Creating Flask app from: {url}", fg="cyan"))
     click.echo(click.style(f"Project folder: {folder_path}", fg="cyan"))
     
-    build_server(folder_path, html_content)
+    build_server(folder_path, html_content, dockerfile)
 
     
 
@@ -56,9 +56,9 @@ def clone(url, path=None, name=None, dockerfile=False):
 @click.option("-p", "--path", help="URL of the web page to clone.",default=None)
 @click.option("--name", "-n", help="Custom name for the project folder.", default=None)
 @click.option("--dockerfile", "-d", is_flag=True, help="Generate a Dockerfile.", default=False)
-def run(folder_name):
+def run(folder_name, path=None, name=None, dockerfile=False):
     """Serve an existing HTML File."""
-    folder_path = os.path.join(os.getcwd(), folder_name)
+    source_path = os.path.join(os.getcwd(), folder_name)
     
     if not os.path.exists(folder_path):
         click.echo(click.style(f"Error: Folder '{folder_name}' not found.", fg="red"))
@@ -75,12 +75,10 @@ def run(folder_name):
         click.echo(click.style(f"Error: Folder '{folder_name}' already exists.", fg="red"))
         sys.exit(1)
     
-    click.echo(click.style(f"Creating Flask app from: {url}", fg="cyan"))
+    click.echo(click.style(f"Creating Flask app from file: {source_path}", fg="cyan"))
     click.echo(click.style(f"Project folder: {folder_path}", fg="cyan"))
     
-    build_server(folder_path, html_content)
-
-
+    build_server(folder_path, html_content, dockerfile)
 
 
 if __name__ == "__main__":

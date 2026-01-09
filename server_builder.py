@@ -1,7 +1,7 @@
 import os
 import click
 import sys
-from utils import create_dockerfile
+from utils import create_dockerfile, create_server
 
 def build_server(folder_path, html_content, dockerfile=False):
     # Create folder
@@ -33,7 +33,7 @@ def build_server(folder_path, html_content, dockerfile=False):
     click.echo(click.style("Flask app created successfully!", fg="green", bold=True))
     click.echo(f"Project location: {folder_path}")
     click.echo("\nTo run the app:")
-    click.echo(f"  cd {folder_name}")
+    click.echo(f"  cd {folder_path.split('/')[-1]}")
     click.echo("  pip install -r requirements.txt")
     click.echo("  python app.py")
     
