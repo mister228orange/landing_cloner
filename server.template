@@ -1,0 +1,29 @@
+from flask import Flask, request, render_template_string
+import sqlite3
+
+app = Flask(__name__}
+
+
+# Initialize database
+with sqlite3.connect(DB_PATH) as conn:
+    conn.execute('CREATE TABLE IF NOT EXISTS entries (id INTEGER PRIMARY KEY AUTOINCREMENT, email Text, content TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)')
+
+@app.route('/')
+def index():
+    page = open("index.html").read()
+    return page
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    email = request.form.get('email')
+    data = request.form.get('data')
+    if data and email:
+        with sqlite3.connect(DB_PATH) as conn:
+            conn.execute('INSERT INTO messages (email, content) VALUES (?, ?)', (email, data))
+    return "OK"
+
+
+if __name__ == '__main__':
+    # Run on all interfaces, port 5000
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
