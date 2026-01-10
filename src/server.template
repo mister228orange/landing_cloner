@@ -1,7 +1,8 @@
 from flask import Flask, request, render_template_string
 import sqlite3
 
-app = Flask(__name__}
+app = Flask(__name__)
+DB_PATH = "./data.db"
 
 
 # Initialize database
@@ -10,7 +11,7 @@ with sqlite3.connect(DB_PATH) as conn:
 
 @app.route('/')
 def index():
-    page = open("index.html").read()
+    page = open("./templates/index.html").read()
     return page
 
 @app.route('/submit', methods=['POST'])

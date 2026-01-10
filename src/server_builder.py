@@ -32,10 +32,12 @@ def build_server(folder_path, html_content, dockerfile=False):
     click.echo("\n" + "="*50)
     click.echo(click.style("Flask app created successfully!", fg="green", bold=True))
     click.echo(f"Project location: {folder_path}")
-    click.echo("\nTo run the app:")
-    click.echo(f"  cd {folder_path.split('/')[-1]}")
-    click.echo("  pip install -r requirements.txt")
-    click.echo("  python app.py")
+    click.echo("\nTo run the app:\n\n+++++++++++++++++++++++\n")
+    click.echo(f"cd {folder_path.split('/')[-1]}")
+    click.echo("python3 venv -m .venv")
+    click.echo("source ./.venv/bin/activate")
+    click.echo("sudo pip install -r requirements.txt")
+    click.echo("python3 app.py")
     
     if dockerfile:
         click.echo("\nTo build and run with Docker:")
