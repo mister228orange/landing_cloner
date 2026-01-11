@@ -3,6 +3,7 @@ import click
 import sys
 from landing_cloner.utils import create_dockerfile, create_server
 
+
 def build_server(folder_path, html_content, dockerfile=False):
     # Create folder
     try:
@@ -11,7 +12,6 @@ def build_server(folder_path, html_content, dockerfile=False):
     except OSError as e:
         click.echo(click.style(f"Error creating folder: {e}", fg="red"))
         sys.exit(1)
-    
     
     # Create Flask app structure
     try:
@@ -33,6 +33,7 @@ def build_server(folder_path, html_content, dockerfile=False):
     click.echo(click.style("Flask app created successfully!", fg="green", bold=True))
     click.echo(f"Project location: {folder_path}")
     click.echo("\nTo run the app:\n\n+++++++++++++++++++++++\n")
+    click.echo("sudo apt install python3-venv")
     click.echo(f"cd {folder_path.split('/')[-1]}")
     click.echo("python3 -m venv .venv")
     click.echo("source ./.venv/bin/activate")
