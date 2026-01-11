@@ -1,0 +1,23 @@
+Metadata-Version: 2.4
+Name: landing-cloner
+Version: 0.1.0
+Summary: Add your description here
+Home-page: https://github.com/mister228orange/landing_cloner
+Author: OneManArmy
+Author-email: OneManArmy <mister228orange@gmail.com>
+License: MIT
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: click>=8.3.1
+Requires-Dist: docker>=7.1.0
+Requires-Dist: flask>=3.1.2
+Requires-Dist: jinja2>=3.1.6
+Requires-Dist: setuptools>=80.9.0
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+
+# landing_cloner
+One line to clone and rise up any onepage site.
