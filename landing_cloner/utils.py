@@ -1,12 +1,43 @@
 import os
 
 
+server_source = """from flask import Flask, request, render_template_string
+import sqlite3
+
+app = Flask(__name__)
+DB_PATH = "./data.db"
+
+
+# Initialize database
+with sqlite3.connect(DB_PATH) as conn:
+    conn.execute('CREATE TABLE IF NOT EXISTS entries (id INTEGER PRIMARY KEY AUTOINCREMENT, email Text, content TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)')
+
+@app.route('/')
+def index():
+    page = open("./templates/index.html").read()
+    return page
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    email = request.form.get('email')
+    data = request.form.get('data')
+    if data and email:
+        with sqlite3.connect(DB_PATH) as conn:
+            conn.execute('INSERT INTO messages (email, content) VALUES (?, ?)', (email, data))
+    return "OK"
+
+
+if __name__ == '__main__':
+    # Run on all interfaces, port 5000
+    app.run(host='0.0.0.0', port=5000, debug=True)
+"""
+
 
 def create_server(folder_path, html_content):
     """Create the Flask app files (app.py, requirements.txt, templates)."""
     # Create app.py
     with open(os.path.join(folder_path, "app.py"), "w") as f:
-        f.write(open("server.template", 'r').read())
+        f.write(server_source)
     
     # Create requirements.txt
     with open(os.path.join(folder_path, "requirements.txt"), "w") as f:
