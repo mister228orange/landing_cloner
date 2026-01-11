@@ -34,10 +34,10 @@ def build_server(folder_path, html_content, dockerfile=False):
     click.echo(f"Project location: {folder_path}")
     click.echo("\nTo run the app:\n\n+++++++++++++++++++++++\n")
     click.echo(f"cd {folder_path.split('/')[-1]}")
-    click.echo("python3 venv -m .venv")
+    click.echo("python3 -m venv .venv")
     click.echo("source ./.venv/bin/activate")
     click.echo("sudo pip install -r requirements.txt")
-    click.echo("python3 app.py")
+    click.echo("gunicorn app:app")
     
     if dockerfile:
         click.echo("\nTo build and run with Docker:")

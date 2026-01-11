@@ -19,6 +19,7 @@ def cli(ctx, path, name, dockerfile):
       landing_cloner clone https://example.com
       landing_cloner up_file ./page.html -n myapp
       landing_cloner clone https://example.com -p ../path/to/project -d
+      landing_cloner --help for detailed information
 
     """
     click.echo(ctx.get_help())

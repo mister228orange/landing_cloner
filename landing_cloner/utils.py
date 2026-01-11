@@ -41,7 +41,7 @@ def create_server(folder_path, html_content):
     
     # Create requirements.txt
     with open(os.path.join(folder_path, "requirements.txt"), "w") as f:
-        f.write("flask\n")
+        f.write("flask\ngunicorn\n")
     templates_dir = os.path.join(folder_path, "templates")
     os.makedirs(templates_dir, exist_ok=True)
     
