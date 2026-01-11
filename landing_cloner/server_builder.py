@@ -19,9 +19,9 @@ def build_server(folder_path, html_content, dockerfile=False):
         click.echo(click.style("✓ Created Flask app structure", fg="green"))
     except Exception as e:
         click.echo(click.style(f"Error creating app structure: {e}", fg="red"))
-        import shutil
-        shutil.rmtree(folder_path)
-        sys.exit(1)
+        # import shutil
+        # shutil.rmtree(folder_path)
+        # sys.exit(1)
     
     # Create Dockerfile if requested
     if dockerfile:
@@ -37,7 +37,7 @@ def build_server(folder_path, html_content, dockerfile=False):
     click.echo(f"cd {folder_path.split('/')[-1]}")
     click.echo("python3 -m venv .venv")
     click.echo("source ./.venv/bin/activate")
-    click.echo("sudo pip install -r requirements.txt")
+    click.echo("pip install -r requirements.txt")
     click.echo("gunicorn app:app")
     
     if dockerfile:
