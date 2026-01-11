@@ -1,7 +1,7 @@
 import os
 import click
 import sys
-from utils import create_dockerfile, create_server
+from landing_cloner.utils import create_dockerfile, create_server
 
 def build_server(folder_path, html_content, dockerfile=False):
     # Create folder

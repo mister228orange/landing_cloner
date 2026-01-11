@@ -84,7 +84,6 @@ setuptools==68.1.2
 six==1.16.0
 systemd-python==235
 texttable==1.6.7
-torbrowser-launcher==0.3.7
 typing_extensions==4.10.0
 ubuntu-drivers-common==0.0.0
 ubuntu-pro-client==8001

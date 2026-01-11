@@ -1,9 +1,9 @@
 import os
 import click
 import sys
-from utils import create_dockerfile, create_server, get_folder_name
-from server_builder import build_server
-from url2file import url2singlefile
+from landing_cloner.utils import create_dockerfile, create_server, get_folder_name
+from landing_cloner.server_builder import build_server
+from landing_cloner.url2file import url2singlefile
 
 
 @click.group(invoke_without_command=True)
