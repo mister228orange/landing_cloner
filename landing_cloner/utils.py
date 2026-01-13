@@ -1,7 +1,7 @@
 import os
 
 
-server_source = """from flask import Flask, request, render_template_string
+FLASK_APP = """from flask import Flask, request, render_template_string
 import sqlite3
 
 app = Flask(__name__)
@@ -32,12 +32,21 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
 """
 
+DOCKERFILE = '''FROM python:3.9-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+EXPOSE 5000
+CMD ["python", "app.py"]
+'''
 
-def create_server(folder_path, html_content):
+
+def create_server(folder_path: str, html_content: str):
     """Create the Flask app files (app.py, requirements.txt, templates)."""
     # Create app.py
     with open(os.path.join(folder_path, "app.py"), "w") as f:
-        f.write(server_source)
+        f.write(FLASK_APP)
     
     # Create requirements.txt
     with open(os.path.join(folder_path, "requirements.txt"), "w") as f:
@@ -53,14 +62,7 @@ def create_server(folder_path, html_content):
 
 def create_dockerfile(folder_path):
     """Create a Dockerfile for the Flask app."""
-    dockerfile_content = '''FROM python:3.9-slim
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-EXPOSE 5000
-CMD ["python", "app.py"]
-'''
+    dockerfile_content = DOCKERFILE
     
     with open(os.path.join(folder_path, "Dockerfile"), "w") as f:
         f.write(dockerfile_content)

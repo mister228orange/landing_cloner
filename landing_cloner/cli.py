@@ -6,29 +6,50 @@ from landing_cloner.server_builder import build_server
 from landing_cloner.url2file import url2singlefile
 
 
-@click.group(invoke_without_command=True)
-@click.option("-p", "--path", help="URL of the web page to clone.",default=None)
-@click.option("--name", "-n", help="Custom name for the project folder.", default=None)
-@click.option("--dockerfile", "-d", is_flag=True, help="Generate a Dockerfile.", default=False)
-@click.pass_context
-def cli(ctx, path, name, dockerfile):
-    """Flask Clone CLI - Create Flask apps from web pages or local HTML files.
-    
-    Examples:
-    
-      landing_cloner clone https://example.com
-      landing_cloner up_file ./page.html -n myapp
-      landing_cloner clone https://example.com -p ../path/to/project -d
-      landing_cloner --help for detailed information
+CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help", "help"])
 
+
+@click.group(context_settings=CONTEXT_SETTINGS)
+@click.pass_context
+def cli(ctx):
     """
-    click.echo(ctx.get_help())
+    Flask Clone CLI — create Flask apps from web pages or local HTML files.
+
+    Examples:
+
+      landing_cloner clone https://example.com\n
+      landing_cloner clone https://example.com -p ../path/to/project -d\n
+      landing_cloner --help for detailed information
+    
+    
+    """
+    if ctx.invoked_subcommand is None:
+        click.echo(ctx.get_help())
+
+
+# @click.group(invoke_without_command=True)
+# @click.option("-p", "--path", help="Filesystem path where implace flask app.",default=None)
+# @click.option("--name", "-n", help="Custom name for the project folder.", default=None)
+# @click.option("--dockerfile", "-d", is_flag=True, help="Generate a Dockerfile.", default=False)
+# @click.pass_context
+# def cli(ctx, path, name, dockerfile):
+#     """Flask Clone CLI - Create Flask apps from web pages or local HTML files.
+    
+#     Example:
+    
+#       landing_cloner clone https://example.com
+#       landing_cloner up_file ./page.html -n myapp
+#         landing_cloner clone https://example.com -p ../path/to/project -d
+#         landing_cloner --help for detailed information
+
+#     """
+#     click.echo(ctx.get_help())
 
 
 
 @cli.command("clone")
 @click.argument("url")
-@click.option("-p", "--path", help="URL of the web page to clone.",default=None)
+@click.option("-p", "--path", help="Filesystem path where implace flask app.",default=None)
 @click.option("--name", "-n", help="Custom name for the project folder.", default=None)
 @click.option("--dockerfile", "-d", is_flag=True, help="Generate a Dockerfile.", default=False)
 def clone(url, path=None, name=None, dockerfile=False):
@@ -54,7 +75,7 @@ def clone(url, path=None, name=None, dockerfile=False):
 
 @cli.command("up_file")
 @click.argument("folder_name")
-@click.option("-p", "--path", help="URL of the web page to clone.",default=None)
+@click.option("-p", "--path", help="Filesystem path where implace flask app.",default=None)
 @click.option("--name", "-n", help="Custom name for the project folder.", default=None)
 @click.option("--dockerfile", "-d", is_flag=True, help="Generate a Dockerfile.", default=False)
 def run(folder_name, path=None, name=None, dockerfile=False):
@@ -80,6 +101,7 @@ def run(folder_name, path=None, name=None, dockerfile=False):
     click.echo(click.style(f"Project folder: {folder_path}", fg="cyan"))
     
     build_server(folder_path, html_content, dockerfile)
+
 
 
 if __name__ == "__main__":
